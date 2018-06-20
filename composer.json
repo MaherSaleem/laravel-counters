@@ -1,0 +1,24 @@
+{
+    "name": "maher/counters",
+    "description": "management for counters in the system",
+    "type": "Package",
+    "license": "Maher",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "MaherSaleem",
+            "email": "the-maher@live.com"
+        }
+    ],
+    "require": {
+    },
+
+//    For auto Discovery in laravel 5.5 ( no need to be added in config/app.php )
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Maher\\Counters\\CountersServiceProvider"
+            ]
+        }
+    }
+}

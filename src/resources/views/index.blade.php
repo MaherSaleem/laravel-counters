@@ -1,0 +1,1 @@
+<h3>Inside Counter Index View</h3>
