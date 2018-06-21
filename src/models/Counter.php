@@ -4,6 +4,16 @@ namespace Maher\Counters\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
+/**
+ * Class Counter
+ * @package Maher\Counters\Models
+ * @property int id
+ * @property string key
+ * @property string name
+ * @property double value
+ * @property double step
+ */
 class Counter extends Model
 {
     /**

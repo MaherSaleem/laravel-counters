@@ -3,6 +3,7 @@
 namespace Maher\Counters;
 
 use Illuminate\Support\ServiceProvider;
+use Maher\Counters\Providers\RouteServiceProvider;
 
 class CountersServiceProvider extends ServiceProvider
 {
@@ -31,10 +32,9 @@ class CountersServiceProvider extends ServiceProvider
     public function register()
     {
 
-        include __DIR__.'/routes/web.php';
-        $this->app->make('Maher\\Counters\\CountersController');
-
         $this->mergeConfigFrom(__DIR__ . '/config/counter.php', 'employee');
+
+        $this->app->register(RouteServiceProvider::class);
 
 
     }
