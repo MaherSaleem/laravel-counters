@@ -86,7 +86,7 @@ class Counters
 
         $counter = $this->get($key);
         if($counter){
-            $counter->update(['value' => $counter->value - $counter->initial_value]);
+            $counter->update(['value' => $counter->initial_value]);
         }
         return $counter;
     }

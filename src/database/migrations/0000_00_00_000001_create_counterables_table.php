@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountersTable extends Migration
+class CreateCounterablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateCountersTable extends Migration
      */
     public function up()
     {
-        Schema::create('counters', function (Blueprint $table) {
+        Schema::create('counterables', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('key')->unique();
-            $table->string('name');
-            $table->double('initial_value')->default('0');
+            $table->unsignedInteger('counterable_id');
+            $table->string('counterable_type');
+            $table->unsignedInteger('counter_id');
             $table->double('value')->default('0');
-            $table->enum('type', ['general', 'model']);
-            $table->double('step')->default('1');
-            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

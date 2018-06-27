@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class Counters
  * @package Maher\Counters\Facades
+ * @method static get($key){
  * @method static getValue($key, $default = null)
  * @method static setValue($key, $value)
  * @method static setStep($key, $step)
