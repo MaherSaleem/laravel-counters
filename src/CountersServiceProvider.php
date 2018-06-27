@@ -21,7 +21,6 @@ class CountersServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
 
-
     }
 
     /**
@@ -32,7 +31,9 @@ class CountersServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->mergeConfigFrom(__DIR__ . '/config/counter.php', 'employee');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
+        $this->mergeConfigFrom(__DIR__ . '/config/counter.php', 'counter');
 
         $this->app->register(RouteServiceProvider::class);
 
