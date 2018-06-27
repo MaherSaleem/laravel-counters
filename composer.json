@@ -2,7 +2,7 @@
     "name": "maher/counters",
     "description": "management for counters in the system",
     "type": "Package",
-    "license": "Maher",
+    "license": "MIT",
     "minimum-stability": "dev",
     "authors": [
         {
