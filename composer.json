@@ -10,8 +10,6 @@
             "email": "the-maher@live.com"
         }
     ],
-
-//    For auto Discovery in laravel 5.5 ( no need to be added in config/app.php )
     "extra": {
         "laravel": {
             "providers": [
