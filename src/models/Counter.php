@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string key
  * @property string name
  * @property double value
+ * @property double initial_value
  * @property double step
  */
 class Counter extends Model
@@ -25,6 +26,7 @@ class Counter extends Model
         'key',
         'name',
         'value',
+        'initial_value',
         'step',
     ];
 }

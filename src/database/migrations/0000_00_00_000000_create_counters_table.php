@@ -17,7 +17,8 @@ class CreateCountersTable extends Migration
             $table->increments('id');
             $table->string('key')->unique();
             $table->string('name');
-            $table->double('value');
+            $table->double('initial_value')->default('0');
+            $table->double('value')->default('0');
             $table->double('step')->default('1');
             $table->timestamps();
         });
