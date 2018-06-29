@@ -1,6 +1,11 @@
 {
     "name": "maher/counters",
-    "description": "management for counters in the system",
+    "description": "management for counters in laravel system",
+    "keywords": [
+        "maher",
+        "laravel",
+        "counters"
+    ],
     "type": "Package",
     "license": "MIT",
     "minimum-stability": "dev",
