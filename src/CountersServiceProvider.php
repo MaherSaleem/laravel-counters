@@ -20,6 +20,9 @@ class CountersServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([\Maher\Counters\Commands\MakeCounter::class]);
+        }
 
     }
 
