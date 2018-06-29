@@ -29,4 +29,13 @@ class Counter extends Model
         'initial_value',
         'step',
     ];
+
+    public function getIncrementUrl(){
+        return url('counters/increment/' . $this->id);
+    }
+
+    public function getDecrementUrl(){
+        return url('counters/decrement/' . $this->id);
+    }
+
 }

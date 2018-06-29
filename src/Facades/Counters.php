@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static setStep($key, $step)
  * @method static increment($key)
  * @method static decrement($key)
+ * @method static incrementIfNotHasCookies($key)
+ * @method static decrementIfNotHasCookies($key)
  */
 class Counters extends Facade
 {

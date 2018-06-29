@@ -91,5 +91,30 @@ class Counters
         return $counter;
     }
 
+    public function incrementIfNotHasCookies($key){
+        $cookieName = $this->getCookieName($key);
+        if(!array_key_exists($cookieName, $_COOKIE)){
+            $this->increment($key);
+            setcookie($cookieName, 1);
+        }
+    }
 
+    public function decrementIfNotHasCookies($key){
+        $cookieName = $this->getCookieName($key);
+        if(!array_key_exists($cookieName, $_COOKIE)){
+            $this->increment($key);
+            setcookie($cookieName, 1);
+        }
+    }
+
+    //FIXME still buggy
+    public function clearCookie($key){
+        $cookieName = $this->getCookieName($key);
+        unset($_COOKIE[$cookieName]);
+        setcookie($cookieName, '', time() - 3600);
+    }
+
+    private function getCookieName($key){
+        return 'counters-cookie-' . $key;
+    }
 }
