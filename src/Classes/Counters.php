@@ -9,6 +9,14 @@ class Counters
 {
 
 
+
+    public function create($key, $name, $initial_value = 0, $step = 1){
+        $value = $initial_value;
+        Counter::query()->create(
+            compact('key', 'name', 'initial_value', 'step', 'value')
+        );
+
+    }
     /**
      * @param $key
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|Counter

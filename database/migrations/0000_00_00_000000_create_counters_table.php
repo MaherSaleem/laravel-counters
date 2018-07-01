@@ -13,6 +13,8 @@ class CreateCountersTable extends Migration
      */
     public function up()
     {
+
+        //TODO take tables names from config
         Schema::create('counters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key')->unique();

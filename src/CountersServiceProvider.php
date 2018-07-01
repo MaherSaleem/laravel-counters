@@ -20,9 +20,23 @@ class CountersServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
+
+        $this->publishes([
+            __DIR__ . '/../config/counter.php' => config_path('counter.php'),
+        ], 'config');
+
+
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/0000_00_00_000000_create_counters_table.php' => $this->app->databasePath()."/migrations/0000_00_00_000000_create_counters_table.php",
+            __DIR__.'/../database/migrations/0000_00_00_000001_create_counterables_table.php' => $this->app->databasePath()."/migrations/0000_00_00_000001_create_counterables_table_create_counterable_table.php",
+        ], 'migrations');
+
+
         if ($this->app->runningInConsole()) {
             $this->commands([\Maher\Counters\Commands\MakeCounter::class]);
         }
+
 
     }
 
