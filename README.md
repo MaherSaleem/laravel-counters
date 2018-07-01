@@ -53,7 +53,7 @@ In Laravel 5.5 and higher versions, the service provider will automatically get 
 You must publish [the migration](https://github.com/MaherSaleem/Counters/tree/master/database/migrations) with:
 
 ```bash
-php artisan vendor:publish --provider="Maher\Counters\CountersServiceProviderr" --tag="migrations"
+php artisan vendor:publish --provider="Maher\Counters\CountersServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create the tables by running the migrations:
@@ -233,7 +233,7 @@ Here's a sample seede.
             ]);
             
             $post = Post::find(1);
-            $post->addCounter('number_of_views');// to add the record to countrable Class
+            $post->addCounter('number_of_views');// to add the record to countrable table
             
             
         }
@@ -242,7 +242,7 @@ Here's a sample seede.
 
 ## Credits
 
-Special Thanks for [Spatie](https://github.com/spatie) , since I learned and followed there structure of building laravel packages.
+Special Thanks to [Spatie](https://github.com/spatie) , since I learned and followed there structure of building laravel packages.
 
 ## License
 

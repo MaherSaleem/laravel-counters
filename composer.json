@@ -15,6 +15,11 @@
             "email": "the-maher@live.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Maher\\Counters\\": "src/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
