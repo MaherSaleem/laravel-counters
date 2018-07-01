@@ -3,14 +3,14 @@
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [Using Counters Associated with model](#using-counters-with-model)
-  * [Using Counters with no models](#using-counter-no-model)
+  * [Using Counters Associated with model](#1-using-counters-associated-with-model)
+  * [Using Counters with no models](#2-using-counters-with-no-model)
   * [Using artisan commands](#using-artisan-commands)
 * [Unit Testing[To be added later]](#unit-testing)
 * [Database Seeding](#database-seeding)
 * [Cache[To be added later]](#cache)
-* [Credits](#credit)
-* [licence](#licence)
+* [Credits](#credits)
+* [license](#license)
 
 This package allows you to manage manage counters in the system.
 
@@ -71,7 +71,7 @@ php artisan vendor:publish --provider="Maher\Counters\CountersServiceProvider" -
 
 ## Usage
 ### 1) Using Counters with no models
-First, add the `Maher\Counters\Traits\HasRoles` trait to your `Post` model(s):
+First, add the `Maher\Counters\Traits\HasCounter` trait to your `Post` model(s):
 
 ```php
 use Maher\Counters\Traits\HasCounter;
@@ -84,7 +84,7 @@ class Post extends Model
 }
 ```
 
-This package allows the posts to be associated with counters and roles. Every post can associated with multiple counters.
+This package allows the posts to be associated with counters. Every post can associated with multiple counters.
 
 
 We can create a counter like this, for example, lets create a counter for the number of views for the Post Model.
@@ -194,9 +194,9 @@ Counters::decrementIfNotHasCookies($key);
 ## Using artisan commands
 
 You can create a Counter from a console with artisan commands.
-
+The following command creates the counter number_of_visitors with initial value 0 and step 1
 ```bash
-php artisan make:counter number_of_visitors
+php artisan make:counter number_of_visitors Visitors 0 1
 ```
 
 
