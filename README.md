@@ -3,9 +3,9 @@
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [Using Counters Associated with model](#1-using-counters-associated-with-model)
-  * [Using Counters with no models](#2-using-counters-with-no-model)
-  * [Using artisan commands](#using-artisan-commands)
+  * [1) Using Counters Associated with model](#1-using-counters-with-no-models)
+  * [2) Using Counters with no models](#2-using-counters-with-no-models)
+  * [3) Using artisan commands](#3-using-artisan-commands)
 * [Unit Testing[To be added later]](#unit-testing)
 * [Database Seeding](#database-seeding)
 * [Cache[To be added later]](#cache)
@@ -191,7 +191,7 @@ Counters::decrementIfNotHasCookies($key);
 ```
 
 
-## Using artisan commands
+## 3)Using artisan commands
 
 You can create a Counter from a console with artisan commands.
 The following command creates the counter number_of_visitors with initial value 0 and step 1
