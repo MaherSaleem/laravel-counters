@@ -4,7 +4,11 @@
     "keywords": [
         "maher",
         "laravel",
-        "counters"
+        "counters",
+        "increment",
+        "decrement",
+        "number of visitors",
+        "visitors"
     ],
     "type": "Package",
     "license": "MIT",

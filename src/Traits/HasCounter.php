@@ -7,6 +7,7 @@ use Maher\Counters\Models\Counter;
 
 trait HasCounter
 {
+
     /**
      *
      */
@@ -20,7 +21,8 @@ trait HasCounter
      */
     public function counters()
     {
-        return $this->morphToMany(Counter::class, 'counterable')
+        $counterableTableName = config('counter.counterable.table_name');
+        return $this->morphToMany(Counter::class, $counterableTableName)
             ->withPivot('value');
     }
 
@@ -30,7 +32,19 @@ trait HasCounter
      */
     public function getCounter($key)
     {
-        return $this->counters()->where('counters.key', $key)->first();
+        $countersTable = config('counter.counter.table_name');
+        $counter = $this->counters()->where("$countersTable.key", $key)->first();
+        //connect the counter to the object if it's not exist
+        if(!$counter){
+            $this->addCounter($key);
+            $counter = $this->counters()->where("$countersTable.key", $key)->first();
+        }
+        return $counter;
+    }
+
+    public function hasCounter($key){
+        $countersTable = config('counter.counter.table_name');
+        return !is_null($this->counters()->where("$countersTable.key", $key)->first());
     }
 
     /**
@@ -52,14 +66,17 @@ trait HasCounter
      */
     public function addCounter($key, $initalValue = null)
     {
-        //TODO check if the model has this $key before
         $counter = Counters::get($key);
         if ($counter) {
-            $this->counters()->attach(
-                $counter->id, [
-                    'value' => !is_null($initalValue) ? $initalValue : $counter->initial_value
-                ]
-            );
+            if(!$this->hasCounter($key)){ // not to add the counter twice
+                $this->counters()->attach(
+                    $counter->id, [
+                        'value' => !is_null($initalValue) ? $initalValue : $counter->initial_value
+                    ]
+                );
+            }else{
+                logger("In addCounter: This object already has counter for $key");
+            }
         } else {
             logger("In addCounter: Counter Is not found for key $key");
         }

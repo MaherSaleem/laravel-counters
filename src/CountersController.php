@@ -11,19 +11,31 @@ use Maher\Counters\Models\Counter;
 class CountersController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         return view('Counters::index');
     }
 
-    //FIXME model binding in not working
-    public function increment(Request $request,Counter  $counter){
-        dd($counter->id);
-        return Counters::increment($counter->key);
+    public function increment(Request $request, $counter_id)
+    {
+        $counter = Counter::query()->find($counter_id);
+
+        if ($counter) {
+            $counter = Counters::increment($counter->key);
+             return response()->json(['counter' => $counter], 200);
+        }else{
+            return response()->json(['counterNotFound' => true], 400);
+        }
     }
 
-    //FIXME model binding in not working
-    public function decrement(Request $request, Counter $counter){
-        dd($counter);
-        return Counters::decrement($counter->key);
+    public function decrement(Request $request, $counter_id)
+    {
+        $counter = Counter::query()->find($counter_id);
+        if ($counter) {
+            $counter = Counters::decrement($counter->key);
+            return response()->json(['counter' => $counter], 200);
+        }else{
+            return response()->json(['counterNotFound' => true], 400);
+        }
     }
 }

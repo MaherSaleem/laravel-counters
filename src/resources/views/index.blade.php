@@ -1,1 +1,1 @@
-<h3>Inside Counter Index View</h3>
+<h3>{{trans('Counters::counters.hello')}}</h3>

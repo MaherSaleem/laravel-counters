@@ -18,7 +18,9 @@ class CountersServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'Counters');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        //To load migration files directly from the package
+//        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
 
         $this->publishes([
@@ -28,8 +30,7 @@ class CountersServiceProvider extends ServiceProvider
 
 
         $this->publishes([
-            __DIR__.'/../database/migrations/0000_00_00_000000_create_counters_table.php' => $this->app->databasePath()."/migrations/0000_00_00_000000_create_counters_table.php",
-            __DIR__.'/../database/migrations/0000_00_00_000001_create_counterables_table.php' => $this->app->databasePath()."/migrations/0000_00_00_000001_create_counterables_table_create_counterable_table.php",
+            __DIR__.'/../database/migrations/0000_00_00_000000_create_counters_tables.php' => $this->app->databasePath()."/migrations/0000_00_00_000000_create_counters_tables.php",
         ], 'migrations');
 
 

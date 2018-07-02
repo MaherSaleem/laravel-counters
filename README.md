@@ -100,7 +100,7 @@ $counter = Counter([
 ```
 
 
-After that, for exmple, in the show function of post controller, you can add this line:
+After that, for example, in the show function of post controller, you can add this line:
 ```php
 class PostsController extends Controller
 {
@@ -129,9 +129,11 @@ $post->addCounter($key);
 $post->removeCounter($key);
 
 //increment the counter with the given $key
+//Note that this will create record in countrable table,if it's not exist
 $post->incrementCounter($key);
 
 //decrement the counter with the given $key
+//Note that this will create record in countrable table,if it's not exist
 $post->decrementCounter($key);
 
  // will reset the counter value (to initial_value) for the post object.
@@ -149,7 +151,7 @@ Therefore, this package will allow you to deat with Counter with these types.
 use Maher\Counters\Facades\Counters; 
 class Test 
 {
-    public function f(Post $post)
+    public function incrementFunction()
     {
         Counters::increment('number_of_visitors');
     }
