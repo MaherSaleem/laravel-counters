@@ -8,12 +8,6 @@ use Maher\Counters\Models\Counter;
 trait HasCounter
 {
 
-    /**
-     *
-     */
-    public static function bootHasCounter()
-    {
-    }
 
 
     /**
@@ -22,8 +16,12 @@ trait HasCounter
     public function counters()
     {
         $counterableTableName = config('counter.counterable.table_name');
-        return $this->morphToMany(Counter::class, $counterableTableName)
-            ->withPivot('value');
+        return $this->morphToMany(
+            Counter::class,
+            'counterable',
+                $counterableTableName
+            )
+            ->withPivot('value', 'id');
     }
 
     /**
@@ -128,5 +126,27 @@ trait HasCounter
             logger("In resetCounter: Counter Is not found for key $key");
         }
         return $counter;
+    }
+
+    public function getIncrementUrl($key){
+        $counter = $this->getCounter($key);
+        if($counter){
+            $counterableId = $counter->pivot->id;
+            $countersBaseUrl = config('counter.base_url');
+            return url("$countersBaseUrl/counterable/increment/" . $counterableId);
+        }else{
+            return '#';
+        }
+    }
+
+    public function getDecrementUrl($key){
+        $counter = $this->getCounter($key);
+        if($counter){
+            $counterableId = $counter->pivot->id;
+            $countersBaseUrl = config('counter.base_url');
+            return url("$countersBaseUrl/counterable/decrement/" . $counterableId);
+        }else{
+            return '#';
+        }
     }
 }

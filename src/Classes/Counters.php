@@ -8,7 +8,12 @@ use Maher\Counters\Models\Counter;
 class Counters
 {
 
+    public $baseUrl;
 
+    public function __construct()
+    {
+        $this->baseUrl = config("counter.base_url");
+    }
 
     public function create($key, $name, $initial_value = 0, $step = 1){
         $value = $initial_value;
@@ -124,5 +129,13 @@ class Counters
 
     private function getCookieName($key){
         return 'counters-cookie-' . $key;
+    }
+
+    public function getIncrementUrl($key){
+        return url("$this->baseUrl/increment/" . $key);
+    }
+
+    public function getDecrementUrl($key){
+        return url("$this->baseUrl/decrement/" . $key);
     }
 }

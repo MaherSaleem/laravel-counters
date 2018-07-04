@@ -2,7 +2,9 @@
 
 namespace Maher\Counters;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Maher\Counters\Facades\Counters;
 use Maher\Counters\Providers\RouteServiceProvider;
 
 class CountersServiceProvider extends ServiceProvider
@@ -22,6 +24,12 @@ class CountersServiceProvider extends ServiceProvider
         //To load migration files directly from the package
 //        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
+
+        $this->app->booted(function () {
+            $loader = AliasLoader::getInstance();
+            $loader->alias('Counters', Counters::class);
+
+        });
 
         $this->publishes([
             __DIR__ . '/../config/counter.php' => config_path('counter.php'),

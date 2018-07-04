@@ -6,6 +6,7 @@
   * [1) Using Counters Associated with model](#1-using-counters-with-no-models)
   * [2) Using Counters with no models](#2-using-counters-with-no-models)
   * [3) Using artisan commands](#3-using-artisan-commands)
+  * [4) Using APIs for counters](#4-usign-apis-for-counters)
 * [Unit Testing[To be added later]](#unit-testing)
 * [Database Seeding](#database-seeding)
 * [Cache[To be added later]](#cache)
@@ -201,6 +202,34 @@ The following command creates the counter number_of_visitors with initial value 
 php artisan make:counter number_of_visitors Visitors 0 1
 ```
 
+## 4) Using APIs for counters
+
+In some cases, we are using a single page application, or we don't want to leave the current page. Therefore
+there are APIs to increment/decrement general/per_model_object counters.
+
+Examples
+```php
+use Maher\Counters\Facades\Counters; 
+
+//this will return a link to increment the counter key
+//for exampel 'exmple.com/counters/increment/visitors'
+Counters::getIncrementUrl($key);
+Counters::getDecrementUrl($key);
+
+// we can use these in Blades for example,
+// <a href={{\Counters::getIncrementUrl($key)}}>Incrment Visitors</a>
+
+```
+
+Moreover, we can increment/decrement objects counters by these methods
+
+ ```php
+ 
+ $post = Post::find(1);
+ 
+ $post->getIncrementUrl($key);
+ $post->getDecrementUrl($key);
+ ```
 
 ## Database Seeding
 

@@ -3,6 +3,7 @@
 namespace Maher\Counters\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Maher\Counters\Facades\Counters;
 
 
 /**
@@ -31,11 +32,11 @@ class Counter extends Model
     ];
 
     public function getIncrementUrl(){
-        return url('counters/increment/' . $this->id);
+        return Counters::getIncrementUrl($this->key);
     }
 
     public function getDecrementUrl(){
-        return url('counters/decrement/' . $this->id);
+        return Counters::getDecrementUrl($this->key);
     }
 
 }
