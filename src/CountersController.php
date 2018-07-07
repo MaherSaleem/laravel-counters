@@ -5,9 +5,8 @@ namespace Maher\Counters;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Maher\Counters\Facades\Counters;
-use Maher\Counters\Models\Counter;
+use Maher\Counters\Models\Counterable;
 
 class CountersController extends Controller
 {
@@ -40,11 +39,27 @@ class CountersController extends Controller
         }
     }
 
-    public function incrementCounterable(Request $request, $counterable_key){
-
-        //TODO implement this
+    public function incrementCounterable(Request $request, $counterable_id)
+    {
+        $counterable = Counterable::query()->find($counterable_id);
+        if($counterable){
+            $counter = $counterable->counter;
+            $counterable->update(['value' => $counterable->value + $counter->step]);
+            return response()->json(['counterable' => $counterable], 200);
+        }else{
+            return response()->json(['counter Not Found' => true], 400);
+        }
     }
-    public function decrementCounterable(Request $request, $counterable_key){
 
+    public function decrementCounterable(Request $request, $counterable_id)
+    {
+        $counterable = Counterable::query()->find($counterable_id);
+        if($counterable){
+            $counter = $counterable->counter;
+            $counterable->update(['value' => $counterable->value + $counter->step]);
+            return response()->json(['counterable' => $counterable], 200);
+        }else{
+            return response()->json(['counter Not Found' => true], 400);
+        }
     }
 }

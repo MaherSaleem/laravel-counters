@@ -2,12 +2,17 @@
 
 
 
+$baseUrl = config("counter.base_url");
 
 /*
- * These are apis for ajax uses
+ * These can be used as API to increment general counters
  */
-Route::get('counters/increment/{counter}', 'CountersController@increment');
-Route::get('counters/decrement/{counter}','CountersController@decrement');
+Route::get("$baseUrl/increment/{counter}", "CountersController@increment");
+Route::get("$baseUrl/decrement/{counter}","CountersController@decrement");
 
 
-Route::get('/counters', 'CountersController@index');
+Route::get("$baseUrl/counterable/increment/{counterable}", "CountersController@incrementCounterable");
+Route::get("$baseUrl/counterable/decrement/{counterable}","CountersController@decrementCounterable");
+
+
+Route::get("/$baseUrl", "CountersController@index");
