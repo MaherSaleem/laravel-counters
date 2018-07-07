@@ -221,6 +221,23 @@ Counters::getDecrementUrl($key);
 
 ```
 
+by Using this link, a json structure of the updated counter will return as response
+
+```json
+{
+    "counter": {
+        "id": 1,
+        "key": "visitors",
+        "name": "Visitors",
+        "initial_value": 0,
+        "value": 9,
+        "step": 3,
+        "notes": null,
+        "created_at": "2018-07-02 20:57:03",
+        "updated_at": "2018-07-07 13:07:49"
+    }
+}
+```
 Moreover, we can increment/decrement objects counters by these methods
 
  ```php
@@ -229,8 +246,34 @@ Moreover, we can increment/decrement objects counters by these methods
  
  $post->getIncrementUrl($key);
  $post->getDecrementUrl($key);
+ 
  ```
+ And a json structure like the following will return as response
 
+```json
+{
+    "counterable": {
+        "id": 2,
+        "counterable_id": 2,
+        "counterable_type": "App\\Post",
+        "counter_id": 1,
+        "value": 24,
+        "created_at": null,
+        "updated_at": "2018-07-07 13:09:41",
+        "counter": {
+            "id": 1,
+            "key": "visitors",
+            "name": "Visitors",
+            "initial_value": 0,
+            "value": 9,
+            "step": 3,
+            "notes": null,
+            "created_at": "2018-07-02 20:57:03",
+            "updated_at": "2018-07-07 13:07:49"
+        }
+    }
+}
+```
 ## Database Seeding
 
 Here's a sample seede.

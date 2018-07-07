@@ -5,13 +5,17 @@ namespace Maher\Counters\Traits;
 use Maher\Counters\Facades\Counters;
 use Maher\Counters\Models\Counter;
 
+/**
+ * Trait HasCounter
+ * @package Maher\Counters\Traits
+ */
 trait HasCounter
 {
 
 
-
     /**
      * @return mixed
+     * The morph relation between any model and counters
      */
     public function counters()
     {
@@ -26,7 +30,8 @@ trait HasCounter
 
     /**
      * @param $key
-     * @return mixed | Counter
+     * @return mixed
+     * Get counter related to the relation with the given $key
      */
     public function getCounter($key)
     {
@@ -40,6 +45,11 @@ trait HasCounter
         return $counter;
     }
 
+    /**
+     * @param $key
+     * @return bool
+     * check if the related model has counter with the given key
+     */
     public function hasCounter($key){
         $countersTable = config('counter.counter.table_name');
         return !is_null($this->counters()->where("$countersTable.key", $key)->first());
@@ -47,7 +57,8 @@ trait HasCounter
 
     /**
      * @param $key
-     * @return null| Counter
+     * @return null
+     * Get the related model value of the counter for the given $key
      */
     public function getCounterValue($key)
     {
@@ -61,15 +72,17 @@ trait HasCounter
 
     /**
      * @param $key
+     * @param null $initialValue
+     * Add a record to counterable table (make relation with the given $key)
      */
-    public function addCounter($key, $initalValue = null)
+    public function addCounter($key, $initialValue = null)
     {
         $counter = Counters::get($key);
         if ($counter) {
             if(!$this->hasCounter($key)){ // not to add the counter twice
                 $this->counters()->attach(
                     $counter->id, [
-                        'value' => !is_null($initalValue) ? $initalValue : $counter->initial_value
+                        'value' => !is_null($initialValue) ? $initialValue : $counter->initial_value
                     ]
                 );
             }else{
@@ -81,6 +94,10 @@ trait HasCounter
     }
 
 
+    /**
+     * @param $key
+     * Remove the relation in counterable table
+     */
     public function removeCounter($key){
         $counter = Counters::get($key);
         if($counter){
@@ -91,10 +108,15 @@ trait HasCounter
 
     }
 
-    public function incrementCounter($key){
+    /**
+     * @param $key
+     * @return mixed
+     * Increment the counterable in the relation table for the given $key
+     */
+    public function incrementCounter($key, $step = null){
         $counter = $this->getCounter($key);
         if($counter){
-            $this->counters()->updateExistingPivot($counter->id, ['value' => $counter->pivot->value + $counter->step]);
+            $this->counters()->updateExistingPivot($counter->id, ['value' => $counter->pivot->value + ($step ?? $counter->step)]);
         }else{
             logger("In incrementCounter: Counter Is not found for key $key");
         }
@@ -103,10 +125,15 @@ trait HasCounter
 
     }
 
-    public function decrementCounter($key){
+    /**
+     * @param $key
+     * @return mixed
+     * Decrement the counterable in the relation table for the given $key
+     */
+    public function decrementCounter($key, $step = null){
         $counter = $this->getCounter($key);
         if($counter){
-            $this->counters()->updateExistingPivot($counter->id, ['value' => $counter->pivot->value - $counter->step]);
+            $this->counters()->updateExistingPivot($counter->id, ['value' => $counter->pivot->value - ($step ?? $counter->step)]);
         }else{
             logger("In decrementCounter: Counter Is not found for key $key");
         }
@@ -116,18 +143,23 @@ trait HasCounter
 
     /**
      * @param $key
-     * @return \Illuminate\Database\Eloquent\Model|Counters|null
+     * @return mixed
+     * Reset the counterable in the relation table to the initial value for the given $key
      */
-    public function resetCounter($key){
+    public function resetCounter($key ,$initalVlaue = null){
         $counter = $this->getCounter($key);
         if($counter){
-            $this->counters()->updateExistingPivot($counter->id, ['value' => $counter->initial_value]);
+            $this->counters()->updateExistingPivot($counter->id, ['value' =>$initalVlaue ?? $counter->initial_value]);
         }else{
             logger("In resetCounter: Counter Is not found for key $key");
         }
         return $counter;
     }
 
+    /**
+     * @param $key
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
     public function getIncrementUrl($key){
         $counter = $this->getCounter($key);
         if($counter){
@@ -139,6 +171,10 @@ trait HasCounter
         }
     }
 
+    /**
+     * @param $key
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
     public function getDecrementUrl($key){
         $counter = $this->getCounter($key);
         if($counter){
