@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Maher\Counters';
+    protected $namespace = 'Maher\Counters\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

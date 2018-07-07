@@ -1,6 +1,6 @@
 <?php
 
-namespace Maher\Counters;
+namespace Maher\Counters\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
