@@ -1,34 +1,38 @@
 {
-    "name": "maher/laravel-counters",
-    "description": "management for counters in laravel system",
-    "keywords": [
-        "maher",
-        "laravel",
-        "counters",
-        "increment",
-        "decrement",
-        "number of visitors",
-        "visitors"
-    ],
-    "type": "Package",
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "authors": [
-        {
-            "name": "MaherSaleem",
-            "email": "the-maher@live.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Maher\\Counters\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Maher\\Counters\\CountersServiceProvider"
-            ]
-        }
+  "name": "maher/laravel-counters",
+  "description": "management for counters in laravel system",
+  "keywords": [
+    "maher",
+    "laravel",
+    "counters",
+    "increment",
+    "decrement",
+    "number of visitors",
+    "visitors"
+  ],
+  "type": "Package",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0"
+  },
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "MaherSaleem",
+      "email": "the-maher@live.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Maher\\Counters\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Maher\\Counters\\CountersServiceProvider"
+      ]
+    }
+  }
 }
