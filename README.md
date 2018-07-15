@@ -25,7 +25,7 @@ Counters::increment('number_of_visitors');
 // increment/decrement model objects counters
 $post->increment('number_of_views');
 $feature->decrement('number_of_bugs');
-
+$user->decrement('balance', 2); // decrement the balance of the user by 2
 ```
 
 
