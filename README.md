@@ -11,6 +11,7 @@
 * [Database Seeding](#database-seeding)
 * [Cache[To be added later]](#cache)
 * [Credits](#credits)
+* [Special Thanks](#special-thanks)
 * [license](#license)
 
 This package allows you to manage manage counters in the system.
@@ -38,7 +39,7 @@ $user->decrement('balance', 2); // decrement the balance of the user by 2
 This package can be used in Laravel 5.4 or higher. If you are using an older version of Laravel You can install the package via composer:
 
 ``` bash
-composer require maher/counters
+composer require maher/counters "@dev"
 ```
 
 In Laravel 5.5 and higher versions, the service provider will automatically get registered. In older versions of the framework just add the service provider in `config/app.php` file:
@@ -315,6 +316,11 @@ Here's a sample seede.
 ```
 
 ## Credits
+Maher Khdeir
+[Linked In](https://www.linkedin.com/in/maher-khdeir/)
+Email: maher.khdeir@gmail.com
+
+## Special Thanks
 
 Special Thanks to [Spatie](https://github.com/spatie) , since I learned and followed there structure of building laravel packages.
 
