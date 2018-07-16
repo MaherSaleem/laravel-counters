@@ -34,25 +34,28 @@ class Counters
      * @param int $step
      * Creating a record in counters table with $key, $name, $inital_value, $step
      */
-    public function create($key, $name, $initial_value = 0, $step = 1){
+    public function create($key, $name, $initial_value = 0, $step = 1)
+    {
         $value = $initial_value;
-        try{
+        try {
             Counter::query()->create(
                 compact('key', 'name', 'initial_value', 'step', 'value')
             );
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw CounterAlreadyExists::create($key);
         }
 
     }
+
     /**
      * @param $key
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|Counter
      * Get a counter object for the given $key
      */
-    public function get($key){
+    public function get($key)
+    {
         $counter = Counter::query()->where('key', $key)->first();
-        if(is_null($counter)){
+        if (is_null($counter)) {
             throw CounterDoesNotExist::create($key);
         }
         return $counter;
@@ -65,7 +68,8 @@ class Counters
      * get the counter value for the given $key,
      * $default will be returned in case the key is not found
      */
-    public function getValue($key, $default = null){
+    public function getValue($key, $default = null)
+    {
         $counter = Counter::query()->where('key', $key)->first();
         if ($counter) {
             return $counter->value;
@@ -81,7 +85,8 @@ class Counters
      * @param $value
      * set the value of the given counter's key
      */
-    public function setValue($key, $value){
+    public function setValue($key, $value)
+    {
         Counter::query()->where('key', $key)->update(['value' => $value]);
     }
 
@@ -90,7 +95,8 @@ class Counters
      * @param $step
      * set the step value for a given counter's
      */
-    public function setStep($key, $step){
+    public function setStep($key, $step)
+    {
         Counter::query()->where('key', $key)->update(['step' => $step]);
 
     }
@@ -101,11 +107,12 @@ class Counters
      * @return \Illuminate\Database\Eloquent\Model|Counters|null
      * increment the counter with the step
      */
-    public function increment($key){
+    public function increment($key, $step = null)
+    {
 
         $counter = $this->get($key);
-        if($counter){
-            $counter->update(['value' => $counter->value + $counter->step]);
+        if ($counter) {
+            $counter->update(['value' => $counter->value + ($step ?? $counter->step)]);
         }
         return $counter;
     }
@@ -115,11 +122,12 @@ class Counters
      * @return \Illuminate\Database\Eloquent\Model|Counters|null
      * decrement the counter with the step
      */
-    public function decrement($key){
+    public function decrement($key, $step = null)
+    {
 
         $counter = $this->get($key);
-        if($counter){
-            $counter->update(['value' => $counter->value - $counter->step]);
+        if ($counter) {
+            $counter->update(['value' => $counter->value - ($step ?? $counter->step)]);
         }
         return $counter;
     }
@@ -128,10 +136,11 @@ class Counters
      * @param $key
      * @return \Illuminate\Database\Eloquent\Model|Counters|null
      */
-    public function reset($key){
+    public function reset($key)
+    {
 
         $counter = $this->get($key);
-        if($counter){
+        if ($counter) {
             $counter->update(['value' => $counter->initial_value]);
         }
         return $counter;
@@ -142,10 +151,11 @@ class Counters
      * This function will store a cookie for the counter key
      * If the cookie already exist, the counter will not incremented again
      */
-    public function incrementIfNotHasCookies($key){
+    public function incrementIfNotHasCookies($key, $step = null)
+    {
         $cookieName = $this->getCookieName($key);
-        if(!array_key_exists($cookieName, $_COOKIE)){
-            $this->increment($key);
+        if (!array_key_exists($cookieName, $_COOKIE)) {
+            $this->increment($key, $step);
             setcookie($cookieName, 1);
         }
     }
@@ -155,21 +165,13 @@ class Counters
      * This function will store a cookie for the counter key
      * If the cookie already exist, the counter will not decremented again
      */
-    public function decrementIfNotHasCookies($key){
+    public function decrementIfNotHasCookies($key, $step = null)
+    {
         $cookieName = $this->getCookieName($key);
-        if(!array_key_exists($cookieName, $_COOKIE)){
-            $this->increment($key);
+        if (!array_key_exists($cookieName, $_COOKIE)) {
+            $this->decrement($key, $step);
             setcookie($cookieName, 1);
         }
-    }
-
-
-    /**
-     * @param $key
-     * @return string
-     */
-    private function getCookieName($key){
-        return 'counters-cookie-' . $key;
     }
 
     /**
@@ -177,8 +179,13 @@ class Counters
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      * Will return the Api url to increment the counter
      */
-    public function getIncrementUrl($key){
-        return url("$this->baseUrl/increment/" . $key);
+    public function getIncrementUrl($key, $step = null)
+    {
+        $url = url("$this->baseUrl/increment/" . $key);
+        if(!is_null($step)){
+            $url .= "?step=$step";
+        }
+        return $url;
     }
 
     /**
@@ -186,7 +193,19 @@ class Counters
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      * Will return the Api url to decrement the counter
      */
-    public function getDecrementUrl($key){
-        return url("$this->baseUrl/decrement/" . $key);
+    public function getDecrementUrl($key, $step = null)
+    {
+        $url = url("$this->baseUrl/decrement/" . $key);
+        if(!is_null($step)){
+            $url .= "?step=$step";
+        }
+        return $url;    }
+    /**
+     * @param $key
+     * @return string
+     */
+    private function getCookieName($key)
+    {
+        return 'counters-cookie-' . $key;
     }
 }

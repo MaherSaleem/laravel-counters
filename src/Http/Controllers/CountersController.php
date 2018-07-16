@@ -20,8 +20,9 @@ class CountersController extends Controller
     {
         $counter = Counters::get($counter_key);
 
+        $step = $request->get('step');
         if ($counter) {
-            $counter = Counters::increment($counter->key);
+            $counter = Counters::increment($counter->key, $step);
              return response()->json(['counter' => $counter], 200);
         }else{
             return response()->json(['counterNotFound' => true], 400);
@@ -31,8 +32,10 @@ class CountersController extends Controller
     public function decrement(Request $request, $counter_key)
     {
         $counter = Counters::get($counter_key);
+        $step = $request->get('step');
+
         if ($counter) {
-            $counter = Counters::decrement($counter->key);
+            $counter = Counters::decrement($counter->key, $step);
             return response()->json(['counter' => $counter], 200);
         }else{
             return response()->json(['counterNotFound' => true], 400);
@@ -56,7 +59,7 @@ class CountersController extends Controller
         $counterable = Counterable::query()->find($counterable_id);
         if($counterable){
             $counter = $counterable->counter;
-            $counterable->update(['value' => $counterable->value + $counter->step]);
+            $counterable->update(['value' => $counterable->value - $counter->step]);
             return response()->json(['counterable' => $counterable], 200);
         }else{
             return response()->json(['counter Not Found' => true], 400);

@@ -14,13 +14,17 @@
 * [Special Thanks](#special-thanks)
 * [license](#license)
 
-This package allows you to manage manage counters in the system.
+In some cases, you need to manage the state of the counters in your laravel project, like the number of visitors of your website,
+or number of view for a post, or number of downloads for a file, this needs to create a new table to save these records,
+or at least adding new column for your tables to save the count value.
+
+This package allows you to manage counters in your laravel project.
 
 Once installed you can do stuff like this:
 
 ```php
 
-//increment/decrement system counter
+//increment/decrement system counters
 Counters::increment('number_of_visitors'); 
 
 // increment/decrement model objects counters
@@ -28,7 +32,7 @@ $post->increment('number_of_views');
 $feature->decrement('number_of_bugs');
 $user->decrement('balance', 2); // decrement the balance of the user by 2
 ```
-
+There are many other methods that are mentioned below.
 
 ## Installation
 
@@ -73,8 +77,8 @@ php artisan vendor:publish --provider="Maher\Counters\CountersServiceProvider" -
 
 ## Usage
 ### 1) Using Counters with no models
-First, add the `Maher\Counters\Traits\HasCounter` trait to your `Post` model(s):
-
+First, add the `Maher\Counters\Traits\HasCounter` trait to your  model(s):
+for example we can add it to Post Model
 ```php
 use Maher\Counters\Traits\HasCounter;
 
@@ -132,11 +136,13 @@ $post->removeCounter($key);
 
 //increment the counter with the given $key
 //Note that this will create record in countrable table,if it's not exist
-$post->incrementCounter($key);
+//if $step is entered, it will increment with the value of $step
+$post->incrementCounter($key, $step = null);
 
 //decrement the counter with the given $key
 //Note that this will create record in countrable table,if it's not exist
-$post->decrementCounter($key);
+//if $step is entered, it will decrement with the value of $step
+$post->decrementCounter($key, $step = null);
 
  // will reset the counter value (to initial_value) for the post object.
 $post->resetCounter($key);
@@ -146,7 +152,7 @@ $post->resetCounter($key);
 ### 2) Using Counters with no models.
 Sometimes, you have general counters that are not associated with any models, for example the number visitor for your website.
 
-Therefore, this package will allow you to deat with Counter with these types.
+Therefore, this package will allow you to deal with Counter with these types.
 
 ```php
 
@@ -155,6 +161,8 @@ class Test
 {
     public function incrementFunction()
     {
+        //moreover you can add this function in your public page to be incremented 
+        //every time user hits your website
         Counters::increment('number_of_visitors');
     }
 }
@@ -176,16 +184,16 @@ Counters::setValue($key, $value);
 Counters::setStep($key, $step);
 
 //increment the counter with the given $key
-Counters::increment($key);
+Counters::increment($key, $step = null);
 
 //decrement the counter with the given $key
-Counters::decrement($key);
+Counters::decrement($key, $step = null);
 
  // will reset the counter for the inital_value
 Counters::reset($key);
 ```
 
-In some cases, you want to increment the counter once for every person, for example no need to increment the number_of_visitors counter everytime the same user refreshes the page.
+In some cases, you want to increment the counter once for every person, for example no need to increment the number_of_visitors counter every time the same user refreshes the page.
 
 So you can use these functions:
 
