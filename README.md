@@ -51,7 +51,7 @@ In Laravel 5.5 and higher versions, the service provider will automatically get 
 ```php
 'providers' => [
     // ...
-    Maher\Counters\CounterssServiceProvider::class,
+    Maher\Counters\CountersServiceProvider::class,
     //...
 ];
 ```
