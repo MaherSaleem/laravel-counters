@@ -28,9 +28,9 @@ Once installed you can do stuff like this:
 Counters::increment('number_of_visitors'); 
 
 // increment/decrement model objects counters
-$post->increment('number_of_views');
-$feature->decrement('number_of_bugs');
-$user->decrement('balance', 2); // decrement the balance of the user by 2
+$post->incrementCounter('number_of_views');
+$feature->decrementCounter('number_of_bugs');
+$user->decrementCounter('balance', 2); // decrement the balance of the user by 2
 ```
 There are many other methods that are mentioned below.
 
