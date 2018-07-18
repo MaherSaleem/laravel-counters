@@ -7,7 +7,6 @@
   * [2) Using Counters with no models](#2-using-counters-with-no-models)
   * [3) Using artisan commands](#3-using-artisan-commands)
   * [4) Using APIs for counters](#4-usign-apis-for-counters)
-* [Unit Testing[To be added later]](#unit-testing)
 * [Database Seeding](#database-seeding)
 * [Cache[To be added later]](#cache)
 * [Credits](#credits)
@@ -16,9 +15,14 @@
 
 In some cases, you need to manage the state of the counters in your laravel project, like the number of visitors of your website,
 or number of view for a post, or number of downloads for a file, this needs to create a new table to save these records,
-or at least adding new column for your tables to save the count value.
+or at least adding new column for your tables to save the count value.  
+Therefore, with this package, you can create as many counters for your model without needing to create a physical column in your model's table.
+Moreover, you can store public counters like "number_of_visitors" for your website, without needing to create a whole table to store it.
 
-This package allows you to manage counters in your laravel project.
+
+
+
+In summary, this package allows you to manage counters in your laravel project.
 
 Once installed you can do stuff like this:
 
@@ -324,8 +328,8 @@ Here's a sample seede.
 ```
 
 ## Credits
-Maher Khdeir
-[Linked In](https://www.linkedin.com/in/maher-khdeir/)
+Maher Khdeir  
+[Linked In](https://www.linkedin.com/in/maher-khdeir/)  
 Email: maher.khdeir@gmail.com
 
 ## Special Thanks
