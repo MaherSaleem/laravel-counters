@@ -47,7 +47,7 @@ There are many other methods that are mentioned below.
 This package can be used in Laravel 5.4 or higher. If you are using an older version of Laravel You can install the package via composer:
 
 ``` bash
-composer require maher/laravel-counters "@dev"
+composer require maher/laravel-counters
 ```
 
 In Laravel 5.5 and higher versions, the service provider will automatically get registered. In older versions of the framework just add the service provider in `config/app.php` file:

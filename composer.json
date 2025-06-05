@@ -10,9 +10,9 @@
     "number of visitors",
     "visitors"
   ],
-  "type": "Package",
+  "type": "package",
   "license": "MIT",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "require": {
     "php": ">=7.0"
   },
